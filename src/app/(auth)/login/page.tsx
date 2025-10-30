@@ -85,7 +85,7 @@ export default function LoginPage() {
 
         <button
           type="button"
-          className="rounded-lg border px-4 py-2 font-semibold hover:bg-gray-50"
+          className="rounded-lg border px-4 py-2 font-semibold text-gray-900 hover:bg-gray-50"
           onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
         >
           Continue with Google

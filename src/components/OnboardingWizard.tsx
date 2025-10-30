@@ -120,7 +120,7 @@ export default function OnboardingWizard({ initialStep = 0 }: { initialStep?: nu
 
         <div className="flex justify-between pt-2">
           <button
-            className="rounded-lg border px-4 py-2 font-semibold hover:bg-gray-50"
+            className="rounded-lg border px-4 py-2 font-semibold text-gray-900 hover:bg-gray-50"
             onClick={prev}
             disabled={step === 0}
           >
