@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global variables for color scheme */
+:root {
+  --color-emerald: #046a38;
+  --color-emerald-light: #5bb318;
+  --color-gold: #d4af37;
+  --color-skyblue: #87ceeb;
+}
+
+/* Gradient helpers */
+.gradient-emerald {
+  background: linear-gradient(135deg, var(--color-emerald) 0%, var(--color-emerald-light) 100%);
+}
+
+/* Smooth page transitions */
+.page-enter {
+  opacity: 0;
+}
+.page-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in-out;
+}
+.page-exit {
+  opacity: 1;
+}
+.page-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+}
+
+/* Typography defaults */
+html {
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Roboto,
+    Helvetica,
+    Arial,
+    'Apple Color Emoji',
+    'Segoe UI Emoji';
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Playfair Display', Georgia, serif;
+}

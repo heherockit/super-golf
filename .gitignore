@@ -78,6 +78,16 @@ web_modules/
 .next
 out
 
+# Turbo repo cache
+.turbo
+
+# MacOS
+.DS_Store
+
+# Prisma local database
+prisma/dev.db
+prisma/dev.db-journal
+
 # Nuxt.js build / generate output
 .nuxt
 dist
