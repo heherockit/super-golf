@@ -1,5 +1,8 @@
 import { NextResponse } from 'next/server';
+
 import { createRegisterUserCommand } from '@/features/register';
+
+import { signSuccessToken } from '@/lib/successToken';
 
 /**
  * Handles user registration with secure password hashing.
@@ -12,7 +15,11 @@ export async function POST(req: Request) {
 
     await register.execute(json);
 
-    return NextResponse.json({ ok: true });
+    // Issue a short-lived token to gate the success page and prevent direct access.
+    // Use validated input email since command does not return the created object.
+    const token = signSuccessToken({ email: json.email, ts: Math.floor(Date.now() / 1000) });
+
+    return NextResponse.json({ ok: true, token });
   } catch (err) {
     // Attempt to map known errors to HTTP status codes
     const code = (err as any)?.code as string | undefined;

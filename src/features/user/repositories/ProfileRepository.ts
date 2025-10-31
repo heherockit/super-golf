@@ -1,5 +1,7 @@
 import { prisma } from '@/lib/prisma';
+
 import { ProfileModel } from '../models/Profile';
+
 import type { Prisma, Profile } from '@prisma/client';
 
 /**

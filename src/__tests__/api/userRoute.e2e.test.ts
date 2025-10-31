@@ -1,4 +1,5 @@
 import { describe, expect, it, jest } from '@jest/globals';
+
 // Mock NextResponse to avoid importing Next.js server runtime in tests
 jest.mock('next/server', () => ({
   NextResponse: {

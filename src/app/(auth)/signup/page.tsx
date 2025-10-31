@@ -6,6 +6,8 @@ import { useState } from 'react';
 
 import Link from 'next/link';
 
+import { useRouter } from 'next/navigation';
+
 const PasswordStrength = dynamic(() => import('@/components/PasswordStrength'));
 
 /**
@@ -21,6 +23,8 @@ export default function SignupPage() {
   const [error, setError] = useState<string | null>(null);
 
   const [success, setSuccess] = useState<string | null>(null);
+
+  const router = useRouter();
 
   /**
    * Handles user registration via API with validation.
@@ -48,6 +52,15 @@ export default function SignupPage() {
       const msg = await res.text();
 
       setError(msg || 'Registration failed.');
+
+      return;
+    }
+
+    const data = await res.json().catch(() => ({}));
+
+    // Redirect to gated success page with a signed token parameter.
+    if (data?.token) {
+      router.push(`/signup/success?t=${encodeURIComponent(data.token)}`);
 
       return;
     }

@@ -1,6 +1,9 @@
 import { InMemoryUserRepository } from './repositories/InMemoryUserRepository';
+
 import { InMemoryProfileRepository } from './repositories/InMemoryProfileRepository';
+
 import { GetUserProfileCommand } from './commands/GetUserProfileCommand';
+
 import { UpsertUserProfileCommand } from './commands/UpsertUserProfileCommand';
 
 /**

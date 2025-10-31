@@ -1,4 +1,5 @@
 import { ProfileModel } from '../models/Profile';
+
 import { getProfilesStore } from './InMemoryStore';
 
 /**

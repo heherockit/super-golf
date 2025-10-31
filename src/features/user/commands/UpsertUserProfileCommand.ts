@@ -1,4 +1,5 @@
 import { z } from 'zod';
+
 import type { IProfileRepository } from '../repositories/ProfileRepository';
 
 /**
@@ -24,7 +25,9 @@ export class UpsertUserProfileCommand {
 
     if (!parsed.success) {
       const err = new Error('Invalid input');
+
       (err as any).code = 'VALIDATION_ERROR';
+
       throw err;
     }
 

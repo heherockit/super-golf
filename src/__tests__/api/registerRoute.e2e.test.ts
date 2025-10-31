@@ -1,4 +1,5 @@
 import { describe, expect, it, jest } from '@jest/globals';
+
 // Mock NextResponse to avoid importing Next.js server runtime in tests
 jest.mock('next/server', () => ({
   NextResponse: {
@@ -10,7 +11,10 @@ jest.mock('next/server', () => ({
  * E2E-style test verifying register route delegates to command.
  */
 jest.mock('../../features/register', () => ({
-  createRegisterUserCommand: () => ({ execute: jest.fn().mockResolvedValue(undefined) }),
+  // Provide a typed async stub to match RegisterUserCommand.execute(input: unknown): Promise<void>
+  createRegisterUserCommand: () => ({
+    execute: jest.fn(async (_input: unknown) => {}),
+  }),
 }));
 
 describe('api/register POST', () => {
@@ -24,5 +28,8 @@ describe('api/register POST', () => {
     const json = await res.json();
 
     expect(json).toMatchObject({ ok: true });
+
+    // includes success token to allow redirect to gated page
+    expect(typeof json.token === 'string').toBe(true);
   });
 });

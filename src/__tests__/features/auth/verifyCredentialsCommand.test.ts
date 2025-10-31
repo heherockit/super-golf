@@ -1,6 +1,9 @@
 import { describe, expect, it } from '@jest/globals';
+
 import { VerifyCredentialsCommand } from '@/features/auth/commands/VerifyCredentialsCommand';
+
 import type { IUserRepository } from '@/features/user/repositories/UserRepository';
+
 import { PasswordCrypto } from '@/features/auth/models/PasswordCrypto';
 
 /**

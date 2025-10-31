@@ -54,7 +54,10 @@ module.exports = [
     },
     rules: {
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
-      'padding-line-between-statements': 'off',
+      'padding-line-between-statements': [
+        'error',
+        { blankLine: 'always', prev: '*', next: '*' },
+      ],
       '@typescript-eslint/no-explicit-any': 'warn',
       // Next.js Link uses custom anchor behavior.
       'jsx-a11y/anchor-is-valid': 'off',

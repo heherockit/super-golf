@@ -3,6 +3,7 @@ import { getServerSession } from 'next-auth';
 import { buildAuthOptions } from '@/lib/auth';
 
 import { NextResponse } from 'next/server';
+
 import { createGetUserProfileCommand, createUpsertUserProfileCommand } from '@/features/user';
 
 /**

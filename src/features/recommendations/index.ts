@@ -1,11 +1,14 @@
-import { GenerateRecommendationsCommand } from './commands/GenerateRecommendationsCommand';
 import { InMemoryProfileRepository } from '@/features/user/repositories/InMemoryProfileRepository';
 
-/**
- * Builds a GenerateRecommendationsCommand with Prisma profile repository.
- */
-export function createGenerateRecommendationsCommand() {
-  const profiles = new InMemoryProfileRepository();
+import { GenerateStructuredRecommendationsCommand } from './commands/GenerateStructuredRecommendationsCommand';
 
-  return new GenerateRecommendationsCommand(profiles);
+import { OpenAiRepository } from './repositories/OpenAiRepository';
+
+/**
+ * Builds a GenerateStructuredRecommendationsCommand wired to OpenAiRepository.
+ */
+export function createGenerateStructuredRecommendationsCommand() {
+  const ai = new OpenAiRepository(process.env.OPENAI_API_KEY);
+
+  return new GenerateStructuredRecommendationsCommand(ai);
 }

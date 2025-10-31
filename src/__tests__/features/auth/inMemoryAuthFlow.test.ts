@@ -1,5 +1,7 @@
 import { describe, it, expect, beforeEach } from '@jest/globals';
+
 import { createRegisterUserCommand } from '@/features/register';
+
 import { createVerifyCredentialsCommand } from '@/features/auth';
 
 /**
@@ -28,6 +30,7 @@ describe('In-memory registration → credentials login', () => {
     });
 
     expect(identity).toBeTruthy();
+
     expect(identity).toMatchObject({ email: 'user@example.com' });
   });
 

@@ -4,21 +4,48 @@ import { getServerSession } from 'next-auth';
 
 import { buildAuthOptions } from '@/lib/auth';
 
-import { createGenerateRecommendationsCommand } from '@/features/recommendations';
+import { createGenerateStructuredRecommendationsCommand } from '@/features/recommendations';
 
 /**
- * Provides personalized recommendations derived from profile data.
+ * Method not allowed for recommendations. Use POST with a JSON body.
+ * This endpoint now enforces body-driven requests to avoid implicit data sourcing.
  */
 export async function GET() {
+  return new NextResponse('Method Not Allowed. Use POST with JSON body.', { status: 405 });
+}
+
+/**
+ * Handles recommendation generation via POST, reading the JSON payload from the request body.
+ *
+ * Input:
+ * - Either a full onboarding wizard payload (preferred), or a minimal object that may include
+ *   fields like `handicap`, `playFrequency`, `goals`, `equipment`, and an optional `type`.
+ *
+ * Output:
+ * - `{ recommendations: <structured JSON> }` on success.
+ *
+ * Security:
+ * - Requires an authenticated session.
+ * - Validates that the request body is JSON and an object.
+ */
+export async function POST(req: Request) {
   const session = await getServerSession(buildAuthOptions());
 
   if (!session) return new NextResponse('Unauthorized', { status: 401 });
 
-  const email = session.user?.email as string;
+  const payload = await req.json().catch(() => null);
 
-  const generate = createGenerateRecommendationsCommand();
+  if (!payload || typeof payload !== 'object') {
+    return new NextResponse('Bad Request: JSON object required', { status: 400 });
+  }
 
-  const items = await generate.execute(email);
+  const command = createGenerateStructuredRecommendationsCommand();
 
-  return NextResponse.json({ recommendations: items.map((i) => i.text) });
+  try {
+    const json = await command.execute(payload);
+
+    return NextResponse.json({ recommendations: json });
+  } catch (err) {
+    return new NextResponse('Failed to generate recommendations', { status: 500 });
+  }
 }

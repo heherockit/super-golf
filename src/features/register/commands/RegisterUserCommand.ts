@@ -1,5 +1,7 @@
 import { z } from 'zod';
+
 import type { IUserRepository } from '@/features/user/repositories/UserRepository';
+
 import { PasswordCrypto } from '@/features/auth/models/PasswordCrypto';
 
 /**
@@ -22,7 +24,9 @@ export class RegisterUserCommand {
 
     if (!parsed.success) {
       const err = new Error('Invalid input');
+
       (err as any).code = 'VALIDATION_ERROR';
+
       throw err;
     }
 
@@ -32,7 +36,9 @@ export class RegisterUserCommand {
 
     if (existing) {
       const err = new Error('Email already registered');
+
       (err as any).code = 'CONFLICT';
+
       throw err;
     }
 

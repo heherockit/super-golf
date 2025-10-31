@@ -4,6 +4,14 @@ import FeatureCards from '@/components/FeatureCards';
 
 import Footer from '@/components/Footer';
 
+import dynamic from 'next/dynamic';
+
+const EngagementWidget = dynamic(() => import('@/components/EngagementWidget'));
+
+const MetricsEngagementWidget = dynamic(() => import('@/components/MetricsEngagementWidget'));
+
+const Testimonials = dynamic(() => import('@/components/Testimonials'));
+
 /**
  * Home page showcasing hero, features, engagement, and premium footer.
  */
@@ -38,6 +46,10 @@ export default function HomePage() {
               </p>
             </div>
           </div>
+          <div className="mt-10">
+            <Testimonials />
+          </div>
+          <MetricsEngagementWidget />
         </div>
       </section>
       <Footer />

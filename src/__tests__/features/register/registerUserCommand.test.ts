@@ -1,6 +1,9 @@
 import { describe, expect, it } from '@jest/globals';
+
 import { RegisterUserCommand } from '@/features/register/commands/RegisterUserCommand';
+
 import type { IUserRepository } from '@/features/user/repositories/UserRepository';
+
 import { PasswordCrypto } from '@/features/auth/models/PasswordCrypto';
 
 /**
@@ -15,6 +18,7 @@ describe('RegisterUserCommand', () => {
     }
     async create(data: { name: string; email: string; passwordHash: string }) {
       this.created = data;
+
       return {
         id: 'new',
         name: data.name,
@@ -32,7 +36,9 @@ describe('RegisterUserCommand', () => {
 
   it('creates new user with hashed password', async () => {
     const users = new MockRepo(null);
+
     const crypto = new MockCrypto();
+
     const cmd = new RegisterUserCommand(users, crypto);
 
     await cmd.execute({ name: 'A', email: 'a@example.com', password: 'password123' });
@@ -42,7 +48,9 @@ describe('RegisterUserCommand', () => {
 
   it('throws conflict when email exists', async () => {
     const users = new MockRepo({ id: '1', email: 'a@example.com', passwordHash: 'x' });
+
     const crypto = new MockCrypto();
+
     const cmd = new RegisterUserCommand(users, crypto);
 
     await expect(

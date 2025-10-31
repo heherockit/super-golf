@@ -1,4 +1,5 @@
 import { UserModel } from '../models/User';
+
 import { getUsersStore } from './InMemoryStore';
 
 /**

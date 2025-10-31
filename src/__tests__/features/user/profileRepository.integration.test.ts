@@ -38,8 +38,8 @@ jest.mock('@/lib/prisma', () => {
 });
 
 import { describe, expect, it, jest } from '@jest/globals';
-// Import the repository after mocking prisma to ensure mock is applied
-const { PrismaProfileRepository } = require('@/features/user/repositories/ProfileRepository');
+
+import { PrismaProfileRepository } from '@/features/user/repositories/ProfileRepository';
 
 describe('PrismaProfileRepository', () => {
   it('finds and maps profile', async () => {
@@ -48,6 +48,7 @@ describe('PrismaProfileRepository', () => {
     const p = await repo.findByUserId('user@example.com');
 
     expect(p?.userId).toBe('user@example.com');
+
     expect(p?.onboardingCompleted).toBe(true);
   });
 

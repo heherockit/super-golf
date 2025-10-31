@@ -1,5 +1,7 @@
 import { describe, expect, it, jest } from '@jest/globals';
+
 import { UpsertUserProfileCommand } from '@/features/user/commands/UpsertUserProfileCommand';
+
 import type { IProfileRepository } from '@/features/user/repositories/ProfileRepository';
 
 /**
@@ -35,6 +37,7 @@ describe('UpsertUserProfileCommand', () => {
     });
 
     expect(res).toBeTruthy();
+
     expect((repo.upsert as any).mock.calls[0][0]).toBe('user@example.com');
   });
 });

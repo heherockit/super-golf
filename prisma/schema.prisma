@@ -68,3 +68,14 @@ model Profile {
   onboardingStep      Int     @default(0)
   onboardingCompleted Boolean @default(false)
 }
+
+// Stores user-submitted testimonials for the testimonial widget
+model Testimonial {
+  id          String   @id @default(cuid())
+  userName    String
+  avatarUrl   String?
+  rating      Int
+  feedback    String
+  role        String?
+  submittedAt DateTime @default(now())
+}
